@@ -3,21 +3,29 @@ package main
 import (
 	"net/http"
 	"log"
+	"sync"
+	"html/template"
+	"path/filepath"
 )
 
-func main(){
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
-		w.Write([]byte(`
-			<html>
-				<head>
-					<title>チャット</title>
-				</head>
-				<body>
-					チャットしましょう！
-				</body>
-			</html>
-		`))
+type templateHandler struct {
+	once     sync.Once
+	filename string
+	tmpl     *template.Template
+}
+
+func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
+	t.once.Do(func(){
+		t.tmpl =
+			template.Must(template.ParseFiles(filepath.Join("templates",
+			t.filename)))
 	})
+
+	t.templ.Execute(w, nil)
+}
+
+func main(){
+	http.Handle("/", &templateHandler{filename: "chat.html"})
 
 	//webサーバの開始
 	if err := http.ListenAndServe(":8080", nil); err != nil {
