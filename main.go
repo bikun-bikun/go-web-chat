@@ -1,11 +1,11 @@
 package main
 
 import (
-	"net/http"
-	"log"
-	"sync"
 	"html/template"
+	"log"
+	"net/http"
 	"path/filepath"
+	"sync"
 )
 
 type templateHandler struct {
@@ -14,17 +14,17 @@ type templateHandler struct {
 	tmpl     *template.Template
 }
 
-func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request){
-	t.once.Do(func(){
+func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	t.once.Do(func() {
 		t.tmpl =
 			template.Must(template.ParseFiles(filepath.Join("templates",
-			t.filename)))
+				t.filename)))
 	})
 
-	t.templ.Execute(w, nil)
+	t.tmpl.Execute(w, nil)
 }
 
-func main(){
+func main() {
 	http.Handle("/", &templateHandler{filename: "chat.html"})
 
 	//webサーバの開始
