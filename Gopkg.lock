@@ -2,14 +2,123 @@
 
 
 [[projects]]
+  digest = "1:27073ebe2bd8f89641703592408be1a39d3c691405802f892496d5fb48dbb4bd"
+  name = "github.com/clbanning/x2j"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "8514236bc68ead794076e8ad386351dda45e69c4"
+  version = "1.1"
+
+[[projects]]
+  digest = "1:7b5c6e2eeaa9ae5907c391a91c132abfd5c9e8a784a341b5625e750c67e6825d"
   name = "github.com/gorilla/websocket"
   packages = ["."]
-  revision = "ea4d1f681babbce9545c9c5f3d5194a789c89f5b"
-  version = "v1.2.0"
+  pruneopts = "UT"
+  revision = "66b9c49e59c6c48f0ffce28c2d8b8a5678502c6d"
+  version = "v1.4.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:24252a75223c0998680468dda3a67e1ae1e49dc79f3d2bc826b9c58269571093"
+  name = "github.com/stretchr/codecs"
+  packages = [
+    ".",
+    "bson",
+    "constants",
+    "csv",
+    "json",
+    "jsonp",
+    "msgpack",
+    "services",
+    "xml",
+  ]
+  pruneopts = "UT"
+  revision = "04a5b1e1910de7aaf00e1d4419d2508247fba1b4"
+
+[[projects]]
+  branch = "master"
+  digest = "1:7403cbe9c650875d7a00f1811f26a87510790e04e8db57635987a7543c39c545"
+  name = "github.com/stretchr/gomniauth"
+  packages = [
+    ".",
+    "common",
+    "oauth2",
+    "providers/facebook",
+    "providers/github",
+    "providers/google",
+  ]
+  pruneopts = "UT"
+  revision = "4b6c822be2eb64551618722ff80cecde4d63d9be"
+
+[[projects]]
+  digest = "1:ac83cf90d08b63ad5f7e020ef480d319ae890c208f8524622a2f3136e2686b02"
+  name = "github.com/stretchr/objx"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "477a77ecc69700c7cdeb1fa9e129548e1c1c393c"
+  version = "v0.1.1"
+
+[[projects]]
+  branch = "master"
+  digest = "1:b7706d89ae0383d619523c08d219b7d1520ac2e4d47c330f2d6230beb579f980"
+  name = "github.com/stretchr/signature"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "168b2a1e1b562bf381d47471e31f5979a2a51cd5"
+
+[[projects]]
+  branch = "master"
+  digest = "1:f67d2c164104ee044e71af7d9e21bbaa60a6227b980e6e23a0c472eeed1eb689"
+  name = "github.com/stretchr/stew"
+  packages = ["strings"]
+  pruneopts = "UT"
+  revision = "80ef0842b48b329a6120607c817a85aff5a2ec71"
+
+[[projects]]
+  branch = "master"
+  digest = "1:e28c20d2fd1c55d986738dcb8cdc3036a5360c1f138be92f32971355335644ff"
+  name = "github.com/stretchr/tracer"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "66d3696bba973e1697f7d68413b3f19c6d6e2a7c"
+
+[[projects]]
+  digest = "1:03aa6e485e528acb119fb32901cf99582c380225fc7d5a02758e08b180cb56c3"
+  name = "github.com/ugorji/go"
+  packages = ["codec"]
+  pruneopts = "UT"
+  revision = "b4c50a2b199d93b13dc15e78929cfb23bfdf21ab"
+  version = "v1.1.1"
+
+[[projects]]
+  branch = "v2"
+  digest = "1:2642fd0b6900c77247d61d80cf2eb59a374ef4ffc2d25a1b95b87dc355b2894e"
+  name = "gopkg.in/mgo.v2"
+  packages = [
+    "bson",
+    "internal/json",
+  ]
+  pruneopts = "UT"
+  revision = "9856a29383ce1c59f308dd1cf0363a79b5bef6b5"
+
+[[projects]]
+  digest = "1:342378ac4dcb378a5448dd723f0784ae519383532f5e70ade24132c4c8693202"
+  name = "gopkg.in/yaml.v2"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "5420a8b6744d3b0345ab293f6fcba19c978f1183"
+  version = "v2.2.1"
 
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "941e8dbe52e16e8a7dff4068b7ba53ae69a5748b29fbf2bcb5df3a063ac52261"
+  input-imports = [
+    "github.com/gorilla/websocket",
+    "github.com/stretchr/gomniauth",
+    "github.com/stretchr/gomniauth/providers/facebook",
+    "github.com/stretchr/gomniauth/providers/github",
+    "github.com/stretchr/gomniauth/providers/google",
+    "gopkg.in/yaml.v2",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1
