@@ -2,8 +2,8 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/stretchr/gomniauth"
+	"github.com/stretchr/objx"
 	"html/template"
 	"io/ioutil"
 	"log"
@@ -15,13 +15,14 @@ import (
 	"github.com/stretchr/gomniauth/providers/github"
 	"github.com/stretchr/gomniauth/providers/google"
 
-	yaml "gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v2"
 )
 
 type config struct {
-	Google   oauthConfig `yaml:"google"`
-	GitHub   oauthConfig `yaml:"github"`
-	Facebook oauthConfig `yaml:"facebook"`
+	SecurityKey string      `yaml:"securityKey"`
+	Google      oauthConfig `yaml:"google"`
+	GitHub      oauthConfig `yaml:"github"`
+	Facebook    oauthConfig `yaml:"facebook"`
 }
 
 type oauthConfig struct {
@@ -31,8 +32,8 @@ type oauthConfig struct {
 }
 
 var (
-	configrationPath = "env.yml"
-	conf             config
+	envFilePath = "env.yml"
+	conf        config
 )
 
 type templateHandler struct {
@@ -47,12 +48,18 @@ func (t *templateHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			template.Must(template.ParseFiles(filepath.Join("templates",
 				t.filename)))
 	})
-	t.tmpl.Execute(w, r)
+	data := map[string]interface{}{
+		"Host": r.Host,
+	}
+	if authCookie, err := r.Cookie("auth"); err == nil {
+		data["UserData"] = objx.MustFromBase64(authCookie.Value)
+	}
+	t.tmpl.Execute(w, data)
 }
 
 func main() {
 
-	buf, err := ioutil.ReadFile(configrationPath)
+	buf, err := ioutil.ReadFile(envFilePath)
 	if err != nil {
 		return
 	}
@@ -62,15 +69,13 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println(conf.Google.ClientId)
-
 	var addr = flag.String("addr", ":8080", "アプリケーションのアドレス")
 	flag.Parse()
 
-	gomniauth.SetSecurityKey("hogehoge1234")
+	gomniauth.SetSecurityKey(conf.SecurityKey)
 	gomniauth.WithProviders(
-		facebook.New("", "", ""),
-		github.New("", "", ""),
+		facebook.New(conf.Facebook.ClientId, conf.Facebook.Secret, conf.Facebook.RedirectUri),
+		github.New(conf.GitHub.ClientId, conf.GitHub.Secret, conf.GitHub.RedirectUri),
 		google.New(conf.Google.ClientId, conf.Google.Secret, conf.Google.RedirectUri),
 	)
 
