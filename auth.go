@@ -1,8 +1,10 @@
 package main
 
 import (
+	"crypto/md5"
 	"fmt"
 	"github.com/stretchr/objx"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -59,7 +61,11 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			log.Fatalln("ユーザの取得に失敗しました：", provider, "-", err)
 		}
+		m := md5.New()
+		io.WriteString(m, strings.ToLower(user.Name()))
+		userID := fmt.Sprintf("%x", m.Sum(nil))
 		authCookieValue := objx.New(map[string]interface{}{
+			"userID":     userID,
 			"name":       user.Name(),
 			"avatar_url": user.AvatarURL(),
 			"email":      user.Email(),

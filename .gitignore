@@ -1,2 +1,4 @@
 vendor/
 env.yml
+avatars/
+!avatars/.gitkeep
