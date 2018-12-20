@@ -18,6 +18,8 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+var avatars Avatar = UseFileSystemAvatar
+
 type config struct {
 	SecurityKey string      `yaml:"securityKey"`
 	Google      oauthConfig `yaml:"google"`
