@@ -16,7 +16,7 @@ type room struct {
 	tracer  trace.Tracer     //tracerはチャットルームで行われた操作ログを受け取ります。
 }
 
-func newRoom(avatar Avatar) *room {
+func newRoom() *room {
 	return &room{
 		forward: make(chan *message),
 		join:    make(chan *client),

@@ -81,7 +81,7 @@ func main() {
 		google.New(conf.Google.ClientId, conf.Google.Secret, conf.Google.RedirectUri),
 	)
 
-	r := newRoom(UseFileSystemAvatar)
+	r := newRoom()
 	http.Handle("/chat", MustAuth(&templateHandler{filename: "chat.html"}))
 	http.Handle("/login", &templateHandler{filename: "login.html"})
 	http.HandleFunc("/auth/", loginHandler)
