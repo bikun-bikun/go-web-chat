@@ -18,7 +18,11 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-var avatars Avatar = UseFileSystemAvatar
+var avatars Avatar = TryAvatar{
+	UseFileSystemAvatar,
+	UseAuthAvatar,
+	UseGravatar,
+}
 
 type config struct {
 	SecurityKey string      `yaml:"securityKey"`
